@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const WORDS = [
-  "Banana", "Hospital", "Guitar", "Volcano", "Penguin",
-  "Library", "Helicopter", "Cactus", "Diamond", "Spaghetti",
-  "Lighthouse", "Tornado", "Pirate", "Marshmallow", "Telescope",
-  "Avalanche", "Octopus", "Trampoline", "Pyramid", "Submarine",
-  "Kangaroo", "Waterfall", "Astronaut", "Pineapple", "Dinosaur",
-];
+import { WORDS } from "./words";
 
 export default function Home() {
   const [players, setPlayers] = useState<number | null>(null);
@@ -18,6 +11,7 @@ export default function Home() {
   const [word, setWord] = useState("");
   const [impostorIndex, setImpostorIndex] = useState(0);
   const [allDone, setAllDone] = useState(false);
+  const [impostorRevealed, setImpostorRevealed] = useState(false);
 
   function startGame(e: React.FormEvent) {
     e.preventDefault();
@@ -44,6 +38,7 @@ export default function Home() {
     setAllDone(false);
     setCurrentPlayer(1);
     setWordRevealed(false);
+    setImpostorRevealed(false);
     setPlayers(null);
   }
 
@@ -80,12 +75,24 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-full max-w-md rounded-[32px] border border-white/80 bg-white/85 p-8 shadow-[0_30px_90px_-70px_rgba(23,15,50,0.9)] backdrop-blur">
+        <div className="flex w-full max-w-md flex-col gap-4 rounded-[32px] border border-white/80 bg-white/85 p-8 shadow-[0_30px_90px_-70px_rgba(23,15,50,0.9)] backdrop-blur">
+          {impostorRevealed && (
+            <p className="text-center text-lg font-semibold">
+              Huijari oli pelaaja {impostorIndex}
+            </p>
+          )}
+          <button
+            onClick={() => setImpostorRevealed(true)}
+            disabled={impostorRevealed}
+            className="w-full rounded-2xl bg-white px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-zinc-900 ring-1 ring-zinc-200 shadow-[0_12px_40px_-34px_rgba(0,0,0,0.5)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Paljasta huijari
+          </button>
           <button
             onClick={playAgain}
             className="w-full rounded-2xl bg-accent-3 px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-zinc-900 shadow-[0_20px_60px_-35px_rgba(0,215,255,0.7)] transition hover:-translate-y-0.5 hover:brightness-110"
           >
-            Play again
+            Pelaa uudelleen
           </button>
         </div>
       </>
