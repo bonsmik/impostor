@@ -96,15 +96,26 @@ export default function Home() {
       <div className="pointer-events-none absolute right-[-10%] top-72 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,255,135,0.3)_0%,_transparent_60%)] blur-3xl" />
 
       <main className="relative mx-auto flex w-full max-w-3xl flex-col items-center gap-10 text-center">
-        <div className="flex flex-col items-center gap-3">
+        <button
+          onClick={playAgain}
+          className="flex flex-col items-center gap-3 transition hover:opacity-80"
+        >
           <div className="grid h-14 w-14 place-items-center rounded-3xl bg-accent text-base font-semibold text-white shadow-[0_18px_50px_-20px_rgba(255,45,135,0.6)]">
             IM
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.4em] text-muted">
             Impostor
           </p>
-        </div>
+        </button>
         {content}
+        {gameStarted && (
+          <button
+            onClick={playAgain}
+            className="text-xs font-semibold uppercase tracking-[0.3em] text-muted transition hover:text-foreground"
+          >
+            Aloita alusta
+          </button>
+        )}
       </main>
     </div>
   );
